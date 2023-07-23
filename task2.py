@@ -19,29 +19,31 @@ my_str = "Антисоветское восстание в Дагестане, �
 задействовав большие силы из других регионов, и имела военно-техническое преимущество в виде артиллерии, броневиков, авиации и химического оружия. \
 Мятеж был подавлен, боевые действия повлекли негативные последствия для местных жителей, было уничтожено около сотни сёл."
 
+prepositions = ['в', 'без' ,'до', 'из', 'к', 'на', 'по', 'о', 'от', 'перед', 'при', 'через', 'для', 'с', 'у', 'за', 'над', 'об', 'под', 'про', 'а', 'и']
 
 my_dict = {}
+word_list = []
 
-my_str = my_str.lower().translate(str.maketrans('', '', string.punctuation))
+my_str = my_str.lower().translate(str.maketrans('', '', string.punctuation))        #Убираем служебные символы из текста
 my_str = my_str.split()
 
-for elem in my_str:
-    my_dict.setdefault(elem, my_str.count(elem))
-# for element in my_str:
-#     if element not in my_dict:
-#         my_dict [element] = 1
-#     else:
-#         my_dict[element] +=1 
+for word in my_str:                                                                 #Убираем предлоги из текста
+    if word not in prepositions:
+        word_list.append(word)
+
+
+for elem in word_list:
+    my_dict.setdefault(elem, word_list.count(elem))
+ 
+
+max_len= len(max(my_str, key=len))
 
 num_words = 1
 while num_words <= 10:
     num_words += 1
     max_key = max(my_dict,  key=my_dict.get)
-    print(f'{max_key:>10}  =  {my_dict[max_key]}')
+    print(f'{max_key:>{max_len}}  =  {my_dict[max_key]}')
     my_dict.pop(max_key)
 
-# print(my_str)
-# print(my_dict)
-print(num_words)
 
 
